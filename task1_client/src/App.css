@@ -1,0 +1,20 @@
+#root {
+  width: 100%;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+.header_item{
+  display: inline-block;
+  color: white;
+  background-color: black;
+  margin: 10px 40px;
+}
+/* Footer */
+.footer{
+  margin-left: 10px;
+  margin-bottom: 0px;
+  float: bottom;
+}
