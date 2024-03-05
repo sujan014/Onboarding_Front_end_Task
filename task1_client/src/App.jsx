@@ -5,7 +5,8 @@ import CustomersList from "./components/Customers";
 import ProductsList from "./components/Products";
 import StoresList from "./components/Stores";
 import SalesList from "./components/Sales";
-export const BASE_URL = "https://localhost:7155"
+// export const BASE_URL = "https://localhost:7155"
+export const BASE_URL = "https://onboardingtaskmain.azurewebsites.net";
 
 import {  Segment,
           Button 
