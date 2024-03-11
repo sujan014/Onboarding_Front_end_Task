@@ -5,11 +5,16 @@ import CustomersList from "./components/Customers";
 import ProductsList from "./components/Products";
 import StoresList from "./components/Stores";
 import SalesList from "./components/Sales";
+<<<<<<< HEAD
 
 const isDevelopment = import.meta.env.MODE === 'development';
 const find_BASEURL = isDevelopment ? import.meta.env.VITE_API_BASE_URL_LOCAL : import.meta.env.VITE_API_BASE_URL_PROD;
 // export const BASE_URL = "https://onboardingtaskmain.azurewebsites.net";
 export const BASE_URL = "https://localhost:7155"
+=======
+// export const BASE_URL = "https://localhost:7155"
+export const BASE_URL = "https://onboardingtaskmain.azurewebsites.net";
+>>>>>>> d70a5ed5eca0707b7ccb7c88eaf8675f8872050a
 
 import {  Segment,
           Button 
