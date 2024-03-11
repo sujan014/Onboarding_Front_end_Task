@@ -5,6 +5,10 @@ import CustomersList from "./components/Customers";
 import ProductsList from "./components/Products";
 import StoresList from "./components/Stores";
 import SalesList from "./components/Sales";
+
+const isDevelopment = import.meta.env.MODE === 'development';
+const find_BASEURL = isDevelopment ? import.meta.env.VITE_API_BASE_URL_LOCAL : import.meta.env.VITE_API_BASE_URL_PROD;
+// export const BASE_URL = "https://onboardingtaskmain.azurewebsites.net";
 export const BASE_URL = "https://localhost:7155"
 
 import {  Segment,
@@ -15,6 +19,8 @@ const Customers = 0;
 const Products = 1;
 const Stores = 2;
 const Sales = 3;
+
+//export const BASE_URL = find_BASEURL
 
 function App() {
   const [page, setPage] = useState(0)
@@ -49,6 +55,7 @@ function App() {
         <div className="footer">
             <hr/>
             <label>2024-Sujan Raj Shrestha</label>
+            <p>We are in: {import.meta.env.MODE}.</p>
         </div>
     </div>
   )
@@ -88,4 +95,6 @@ function RenderChild(props){
     </div>
   )
 }
+
 export default App
+
