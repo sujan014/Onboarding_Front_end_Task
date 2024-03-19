@@ -1,17 +1,14 @@
 import React from "react"
 import { useState } from "react"
-import './App.css'
-import CustomersList from "./components/Customers";
-import ProductsList from "./components/Products";
-import StoresList from "./components/Stores";
-import SalesList from "./components/Sales";
+import {  Segment, Button } from "semantic-ui-react";
+import CustomersList from "./components/Customer/Customers";
+import ProductsList from "./components/Product/Products";
+import StoresList from "./components/Store/Stores";
+import SalesList from "./components/Sales/Sales";
+import './App.css';
 
 // export const BASE_URL = "https://localhost:7155"
 export const BASE_URL = "https://backendreview.azurewebsites.net";
-
-import {  Segment,
-          Button 
-        } from "semantic-ui-react";
 
 const Customers = 0;
 const Products = 1;
@@ -23,31 +20,18 @@ const Sales = 3;
 function App() {
   const [page, setPage] = useState(0)
 
-  async function customerHandle(){
-    setPage(Customers);    
-    console.log(`press: ${page}`);
-  }
-  async function productHandle(){
-    setPage(Products);
-    console.log(`press: ${page}`);
-  }
-  async function storeHandle(){
-    setPage(Stores);
-    console.log(`press: ${page}`);
-  }
-  async function salesHandle(){
-    setPage(Sales);
-    console.log(`press: ${page}`);
-  }
+  const handlePageUpdate = (pageNumber) => {
+    setPage(pageNumber);
+  }  
   
   return (
     <div>
         <Segment basic inverted>            
             <h3 className="header_item">React</h3>
-            <Button secondary onClick={() => customerHandle()}>Customers</Button>
-            <Button secondary onClick={() => productHandle()}>Products</Button>
-            <Button secondary onClick={() => storeHandle()}>Stores</Button>
-            <Button secondary onClick={() => salesHandle()}>Sales</Button>
+            <Button secondary onClick={() => handlePageUpdate(Customers)}>Customers</Button>
+            <Button secondary onClick={() => handlePageUpdate(Products)}>Products</Button>
+            <Button secondary onClick={() => handlePageUpdate(Stores)}>Stores</Button>
+            <Button secondary onClick={() => handlePageUpdate(Sales)}>Sales</Button>
         </Segment>
         <RenderChild pressCount={page}/>
         <div className="footer">

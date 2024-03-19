@@ -4,9 +4,8 @@ function ErrorComponent(props) {
     const text = props.text;
     return(
         <Segment>
-            <Header as='h3'>
-                {/* Render newline text like this */}
-                {text.split('\n').map(str => <p>{str}</p>)}
+            <Header as='h3'>                
+                {text}
             </Header>
         </Segment>
     );
