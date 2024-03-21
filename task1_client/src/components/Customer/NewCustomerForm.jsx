@@ -21,14 +21,23 @@ function NewCustomerForm(props){
                     address: ipaddress
                 }
             );
-            alert("Customer Created.");
-            // form close callback
-            props.callback();
-            props.dataChange();
+            if (response.status === 200){
+                alert("Customer Created.");
+                // form close callback
+                props.callback();
+                props.dataChange();
+            } else{
+                setErrorString("Error: Could not complete the operation.");
+            }
         }
         catch (error){
-            let errorMsg = error.response.data.errors.Name;
-            setErrorString(errorMsg);
+            let errorMsg = error?.response?.data?.errors?.Name;
+            if (errorMsg === undefined){
+                setErrorString("Undefined Error - Could not complete the operation");
+            }
+            else {
+                setErrorString(errorMsg);
+            }
         }
     }
 

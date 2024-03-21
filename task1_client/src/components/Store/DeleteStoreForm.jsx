@@ -20,15 +20,25 @@ function DeleteStoreForm(props){
     const handleDeleteForm = async() => {
         // add form submission here
         try{
-            const response = await axios.delete(fetch);        
-            alert("Store Deleted.");
-            // callbacks invoked
-            callback();
-            dataChange();
+            const response = await axios.delete(fetch);
+            if (response.status === 200){
+                alert("Store Deleted.");
+                // callbacks invoked
+                callback();
+                dataChange();
+            } else{
+                setErrorString("Error: Could not complete the operation.");
+            }
         }
         catch (error){
-            let errorMsg = error.response.data.errors.Name;            
-            setErrorString(errorMsg);
+            let errorMsg = error?.response?.data?.errors?.Name;
+            console.log("errorMsg: ",errorMsg);
+            if (errorMsg === undefined || errorMsg === null){
+                setErrorString("Undefined Error - Could not complete the operation");
+            }
+            else {
+                setErrorString(errorMsg);
+            }
         }
     };
 

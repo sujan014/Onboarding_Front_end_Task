@@ -5,10 +5,8 @@ import {Button, Table, TableRow, TableHeaderCell, TableHeader, TableCell, TableB
 import { PaginationRender } from "../Pagination/PaginationRender";
 import "../components.css";
 import { BASE_URL } from "../../App";
-import DeleteStoreForm from "./DeleteStoreForm";
-import EditStoreForm from "./EditStoreForm";
-import NewStoreForm from "./NewStoreForm";
 import { RenderNewStoreForm, RenderEditStoreForm, RenderDeleteStoreForm } from "./RenderStoreForms";
+import StoreTableMap from "./StoreTableMap";
 
 function StoresList(){
     const [store, setStore] = useState([]);
@@ -45,8 +43,13 @@ function StoresList(){
     }
     const fetchStores = async () => {
         try{
-            const newstore = await axios.get(`${BASE_URL}/api/Store`);                
-            setStore(newstore.data);            
+            const newstore = await axios.get(`${BASE_URL}/api/Store`);
+            if (newstore.data.length > 0){
+                setStore(newstore.data);
+            } else {
+                alert("Store data is empty.");
+            }
+
         }
         catch{
             alert("Error: Cannot fetch Stores.");
@@ -77,29 +80,28 @@ function StoresList(){
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {currentItems.map((item) => (
-                            <TableRow key={item.id}>
-                                <TableCell>{item.name}</TableCell>
-                                <TableCell>{item.address}</TableCell>
-                                <TableCell>
-                                    <Button color='yellow' onClick={() => EditFormArgs(item.id, item.name, item.address, EditStoreAction)} icon='edit' labelPosition="left" content='Edit' >
-                                    </Button>
-                                </TableCell>
-                                <TableCell>
-                                    <Button color='red' onClick={() => EditFormArgs(item.id, item.name, item.address, DeleteStoreAction)} icon='trash' labelPosition="left" content='Delete' >
-                                    </Button>
-                                </TableCell>
-                            </TableRow>
-                        ))}
+                        {currentItems.map((store) => 
+                            {
+                                const id = store?.id ? store.id : 0;
+                                const name = store?.name ? store.name : "";
+                                const address = store?.address ? store.address : "";
+                                    
+                                return (
+                                    <StoreTableMap 
+                                        key={`Store-${new Date().toLocaleDateString()}-${id}`} 
+                                        customer={store}
+                                        EditFormArgs = {EditFormArgs}
+                                        EditFormAction = {EditStoreAction}
+                                        DeleteFormAction = {DeleteStoreAction}                                         
+                                    />
+                                )                                
+                            }                            
+                        )}
                     </TableBody>
                 </Table>
                 <RenderNewStoreForm condition={newstoreform} formAction={NewStoreAction} updateChange={() => {setDataChanged(!dataChanged)}}/>
                 <RenderEditStoreForm condition={editstoreform} Id={argid} Name={argname} Address={argaddress} formAction = {EditStoreAction} updateChange={() => {setDataChanged(!dataChanged)}}/>
-                <RenderDeleteStoreForm condition={deletestoreform} Id={argid} Name={argname} Address={argaddress} formAction={DeleteStoreAction} updateChange={() => {setDataChanged(!dataChanged)}}/>
-
-                {/* {newstoreform ? <NewStoreForm callback={NewStoreAction} dataChange={() => {setDataChanged(!dataChanged)}}/> : null}
-                {editstoreform ? <EditStoreForm Id={argid} Name={argname} Address={argaddress} callback = {EditStoreAction} dataChange={() => {setDataChanged(!dataChanged)}}/> : null}
-                {deletestoreform ? <DeleteStoreForm Id={argid} Name={argname} Address={argaddress} callback={DeleteStoreAction} dataChange={() => {setDataChanged(!dataChanged)}}/> : null} */}
+                <RenderDeleteStoreForm condition={deletestoreform} Id={argid} Name={argname} Address={argaddress} formAction={DeleteStoreAction} updateChange={() => {setDataChanged(!dataChanged)}}/>                
             </div>
             <div className="nav_panel">
                 <PaginationRender 

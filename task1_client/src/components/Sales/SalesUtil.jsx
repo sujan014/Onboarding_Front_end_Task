@@ -8,8 +8,9 @@ const getCustomers = async () => {
         return (fetch_cstm !== null) ? fetch_cstm : null;
     }
     catch{
-        alert("Error: Cannot fetch Sales customers.");
-        return null;
+        throw new Error("Cannot fetch Sales customers.");
+        // alert("Error: Cannot fetch Sales customers.");
+        // return null;
     }
 }
 
@@ -19,9 +20,10 @@ const getProducts = async () => {
         const fetch_prds = await axios.get(url);
         return (fetch_prds !== null) ? fetch_prds : null;
     }
-    catch{
-        alert("Error: Cannot fetch Sales Products.");
-        return null;
+    catch{        
+        throw new Error("Cannot fetch Sales Products.");
+        //alert("Error: Cannot fetch Sales Products.");
+        // return null;
     }
 }
 
@@ -32,8 +34,9 @@ const getStores = async () => {
         return (fetch_stores !== null) ? fetch_stores : null;
     }
     catch{
-        alert("Error: Cannot fetch Sales Stores.");
-        return null;
+        throw new Error("Cannot fetch Sales customers.");
+        //alert("Error: Cannot fetch Sales Customers.");
+        // return null;
     }
 }
 

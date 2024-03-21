@@ -24,13 +24,23 @@ function DeleteCustomerForm(props){
             // add form submission here
             const response = await axios.delete(fetch);
             // callbacks invoked
-            alert("Customer Deleted.");
-            callback();
-            dataChange();
+            if (response.status === 200){
+                alert("Customer Deleted.");
+                callback();
+                dataChange();
+            } else{
+                setErrorString("Error: Could not complete the operation.");
+            }            
         }
-        catch (error){
-            let errorMsg = error.response.data.errors.Name;
-            setErrorString(errorMsg);
+        catch (error){            
+            let errorMsg = error?.response?.data?.errors?.Name;
+            console.log("errorMsg: ",errorMsg);
+            if (errorMsg === undefined || errorMsg === null){
+                setErrorString("Undefined Error - Could not complete the operation");
+            }
+            else {
+                setErrorString(errorMsg);
+            }                        
         }
     };
 

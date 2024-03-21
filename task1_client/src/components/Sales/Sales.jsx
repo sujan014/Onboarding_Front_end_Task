@@ -6,10 +6,8 @@ import { PaginationRender } from "../Pagination/PaginationRender";
 import "../components.css";
 import { BASE_URL } from "../../App";
 import { getCustomers, getProducts, getStores } from "./SalesUtil";
-import DeleteSalesForm from "./DeleteSalesForm";
-import EditSalesForm from "./EditSalesForm";
-import NewSalesForm from "./NewSalesForm";
 import { RenderNewSalesForm, RenderEditSalesForm, RenderDeleteSalesForm } from "./RenderSalesForms";
+import SalesTableMap from "./SalesTablemap";
 
 function SalesList(){
     const [sales, setSales] = useState([]);    
@@ -46,9 +44,19 @@ function SalesList(){
     }
     const fetchSales = async () => {
         try{
-            const newsales = await axios.get(`${BASE_URL}/api/Sales`);
-            setSales(newsales.data);
+            const newsales = await axios.get(`${BASE_URL}/api/Sales`);            
             
+            if (newsales.data.length > 0){
+                setSales(newsales.data);
+            } else {
+                alert("Sales data is empty.");
+            }                        
+        }
+        catch{
+            alert("Error: Cannot fetch Sales.");
+        }
+        
+        try{
             const cResponse = await getCustomers();
             setCustomers(cResponse.data)
             
@@ -56,10 +64,10 @@ function SalesList(){
             setProducts(pResponse.data);
             
             const sResponse = await getStores();
-            setStores(sResponse.data);            
+            setStores(sResponse.data);
         }
         catch{
-            alert("Error: Cannot fetch Sales.");
+            alert("Error: Cannot fetch Sales data.");
         }
     }
     useEffect(
@@ -76,15 +84,15 @@ function SalesList(){
     let count = 0;
     const GetCustomerName = (id) => {
         const match = customers.find( custmr => custmr.id == id);                
-        return match?.name;
+        return match?.name ? match?.name : "Undefined";
     }
     const GetProductName = (id) => {
         const match = products.find( prod => prod.id == id);
-        return match?.name;
+        return match?.name ? match?.name : "Undefined";
     }
     const GetStoreName = (id) => {
         const match = stores.find( stor => stor.id == id);
-        return match?.name;
+        return match?.name ? match?.name : "Undefined";
     }
 
     return(
@@ -103,31 +111,34 @@ function SalesList(){
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {currentItems.map(item => (
-                            <TableRow key={item.id}>                                
-                                <TableCell>{GetProductName(item.productId)}</TableCell>
-                                <TableCell>{GetCustomerName(item.customerId)}</TableCell>
-                                <TableCell>{GetStoreName(item.storeId)}</TableCell>
-                                <TableCell>{(new Date(item.dateSold).toLocaleDateString())}</TableCell>
-                                <TableCell>
-                                    <Button color='yellow' onClick={ () => EditFormArgs(item.id, EditSalesAction) } icon='edit' labelPosition="left" content='Edit' >
-                                    </Button>
-                                </TableCell>
-                                <TableCell>
-                                    <Button color='red' onClick={ () => EditFormArgs(item.id, DeleteSalesAction) } icon='trash' labelPosition="left" content='Delete' >
-                                    </Button>
-                                </TableCell>
-                            </TableRow>
-                        ))}
+                        {currentItems.map((item) => 
+                            {
+                                const id = item?.id ? item.id : 0;
+                                const productId = item?.productId ? item.productId : 0;
+                                const customerId = item?.customerId ? item.customerId : 0;
+                                const storeId = item?.storeId ? item.storeId : 0;
+                                const date = new Date(item.dateSold).toLocaleDateString();
+
+                                return (
+                                    <SalesTableMap
+                                        key={`Sales-${new Date().toLocaleDateString()}-${id}`} 
+                                        id = {id}
+                                        product={GetProductName(productId)}
+                                        customer = {GetCustomerName(customerId)}
+                                        store = {GetStoreName(storeId)}
+                                        date = {date}
+                                        EditFormArgs = {EditFormArgs}
+                                        EditFormAction = {EditSalesAction}
+                                        DeleteFormAction = {DeleteSalesAction}                                        
+                                    />
+                                )
+                            }                            
+                        )}
                     </TableBody>
                 </Table>
                 <RenderNewSalesForm condition={newsalesform} formAction={NewSalesAction} updateChange={() => {setDataChanged(!dataChanged)}}/>
                 <RenderEditSalesForm condition={editsalesform} Id={argid} formAction={EditSalesAction} updateChange={() => {setDataChanged(!dataChanged)}}/>
-                <RenderDeleteSalesForm condition={deletesalesform} Id={argid} formAction={DeleteSalesAction} updateChange={() => {setDataChanged(!dataChanged)}}/>
-
-                {/* {newsalesform ? <NewSalesForm callback={NewSalesAction} dataChange={() => {setDataChanged(!dataChanged)}}/> : null}
-                {editsalesform ? <EditSalesForm editid={argid} callback={EditSalesAction} dataChange={() => {setDataChanged(!dataChanged)}}/> : null}
-                {deletesalesform ? <DeleteSalesForm deleteid={argid} callback={DeleteSalesAction} dataChange={() => {setDataChanged(!dataChanged)}}/> : null} */}
+                <RenderDeleteSalesForm condition={deletesalesform} Id={argid} formAction={DeleteSalesAction} updateChange={() => {setDataChanged(!dataChanged)}}/>                
             </div>
             <div>
                 <PaginationRender 

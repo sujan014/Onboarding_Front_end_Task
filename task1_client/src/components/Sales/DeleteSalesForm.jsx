@@ -17,14 +17,24 @@ function DeleteSalesForm(props){
         event.preventDefault();
         try{
             const response = await axios.delete(fetchURL);
+            if (response.status === 200){
             alert("Sales Deleted.");
             // callback invoke
             callback();
             dataChange();
+            } else{
+                setErrorString("Error: Could not complete the operation.");
+            }
         }
         catch (error){
-            let errorMsg = error.response.data.errors.Name;            
-            setErrorString(errorMsg);
+            let errorMsg = error?.response?.data?.errors?.Name;
+            console.log("errorMsg: ",errorMsg);
+            if (errorMsg === undefined || errorMsg === null){
+                setErrorString("Undefined Error - Could not complete the operation");
+            }
+            else {
+                setErrorString(errorMsg);
+            }
         }
     }
 

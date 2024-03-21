@@ -6,9 +6,7 @@ import { PaginationRender } from "../Pagination/PaginationRender";
 import { BASE_URL } from "../../App";
 import '../components.css';
 import { RenderNewCustomerForm, RenderEditCustomerForm, RenderDeleteCustomerForm } from "./RenderCustomerForms";
-import NewCustomerForm from "./NewCustomerForm";
-import DeleteCustomerForm from "./DeleteCustomerForm";
-import EditCustomerForm from "./EditCustomerForm";
+import CustomerTableMap from "./CustomerTableMap";
 
 function CustomersList(){
     const [customers, setCustomers] = useState([]);
@@ -41,8 +39,12 @@ function CustomersList(){
     }
     const fetchCustomers = async () => {
         try{
-            const response = await axios.get(`${BASE_URL}/api/Customer`);                        
-            setCustomers(response.data);
+            const response = await axios.get(`${BASE_URL}/api/Customer`);            
+            if (response.data.length > 0){
+                setCustomers(response.data);
+            } else {
+                alert("Customer data is empty.");
+            }
         }
         catch{
             alert("Error: Cannot fetch Customers.");
@@ -75,22 +77,24 @@ function CustomersList(){
                             <TableHeaderCell>Action</TableHeaderCell>
                         </TableRow>
                     </TableHeader>
-                    <TableBody>
-                        {currentItems.map((user) => (
-                            <TableRow key={user.id}>
-                                <TableCell>{user.name}</TableCell>
-                                <TableCell>{user.address}</TableCell>
-                                <TableCell>
-                                    <Button color="yellow" onClick={ () => EditFormArgs(user.id, user.name, user.address, EditFormAction) } icon="edit" labelPosition="left" content="Edit">                                        
-                                    </Button>
-                                </TableCell>
-                                <TableCell>
-                                    <Button color="red" onClick={ () => EditFormArgs(user.id, user.name, user.address, DeleteFormAction) } icon="trash" labelPosition="left" content="Delete">                                    
-                                    </Button>
-                                </TableCell>
-                            </TableRow>                        
-                            )
+                    <TableBody>                        
+                        {currentItems.map((customer) => {
+                            const id = customer?.id ? customer.id : 0;
+                            // const name = customer?.name ? customer.name : "";
+                            // const address = customer?.address ? customer.address : "";
+                            const dateTime = new Date().toLocaleDateString();
+                            return (
+                                <CustomerTableMap
+                                    key={`Customer-${dateTime}-${id}`} 
+                                    customer={customer} 
+                                    EditFormArgs = {EditFormArgs}
+                                    EditFormAction = {EditFormAction}
+                                    DeleteFormAction = {DeleteFormAction}
+                                />
+                                )
+                            }                                                        
                         )}
+                                                                        
                     </TableBody>
                 </Table>
             </div>
@@ -106,10 +110,7 @@ function CustomersList(){
             </div>
             <RenderNewCustomerForm condition={newform} formAction = {NewFormAction} updateChange={() => {setDataChanged(!dataChanged)}}/>
             <RenderEditCustomerForm condition={editform} Id={argid} Name={argname} Address={argaddress} formAction = {EditFormAction} updateChange={() => {setDataChanged(!dataChanged)}}/>
-            <RenderDeleteCustomerForm condition={deleteform} Id={argid} Name={argname} Address={argaddress} formAction = {DeleteFormAction} updateChange={() => {setDataChanged(!dataChanged)}} />
-            {/* {newform ? <NewCustomerForm callback = {NewFormAction} dataChange={() => {setDataChanged(!dataChanged)}}/> : null} */}
-            {/* {editform ? <EditCustomerForm Id={argid} Name={argname} Address={argaddress} callback = {EditFormAction} dataChange={() => {setDataChanged(!dataChanged)}}/> : null} */}
-            {/* {deleteform ? <DeleteCustomerForm Id={argid} Name={argname} Address={argaddress} callback = {DeleteFormAction} dataChange={() => {setDataChanged(!dataChanged)}}/> : null } */}
+            <RenderDeleteCustomerForm condition={deleteform} Id={argid} Name={argname} Address={argaddress} formAction = {DeleteFormAction} updateChange={() => {setDataChanged(!dataChanged)}} />            
         </div>
     )
 }

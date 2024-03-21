@@ -29,16 +29,24 @@ function EditProductForm(props){
                     price: ipprice
                 }
             );        
-            //const { data } = response;
-            alert("Product Edited.");
-            // form close callback
-            callback();
-            dataChange();
+            if (response.status === 200){
+                alert("Product Edited.");
+                // form close callback
+                callback();
+                dataChange();
+            } else{
+                setErrorString("Error: Could not complete the operation.");
+            }
         }
         catch (error){
-            let errorMsg = error.response.data.errors.Name;
-            
-            setErrorString(errorMsg);
+            let errorMsg = error?.response?.data?.errors?.Name;
+            console.log("errorMsg: ",errorMsg);
+            if (errorMsg === undefined || errorMsg === null){
+                setErrorString("Undefined Error - Could not complete the operation");
+            }
+            else {
+                setErrorString(errorMsg);
+            }
         }
     };
     

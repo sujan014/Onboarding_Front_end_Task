@@ -25,27 +25,41 @@ function NewSalesForm(props){
 
     const GetFKeyName = async () => {
         try{
-            const pfetch = await getProducts();
-            const products = pfetch.data.map( item => item.name);
-            setProductList(pfetch.data);
-            setProductOptions( pfetch.data.map( (item, index) => {return {key: index, value: item.name, text: item.name};} ) );
+            const pfetch = await getProducts();            
+            if (pfetch?.data && pfetch?.data.length > 0){
+                const products = pfetch.data.map( item => item.name);
+                setProductList(pfetch.data);
+                setProductOptions( pfetch.data.map( (item, index) => {return {key: index, value: item.name, text: item.name};} ) );
+                // set default value 
+                setIpproduct(products[0]);
+            }
             const cfetch = await getCustomers();
-            const customers = cfetch.data.map( item => item.name);
-            setCustomerList(cfetch.data);
-            //setAllcustomernames(customers);
-            setCustomerOptions( cfetch.data.map( (item, index) => {return {key: index, value: item.name, text: item.name};} ) );
+            if (cfetch?.data && cfetch?.data.length > 0){
+                const customers = cfetch.data.map( item => item.name);
+                setCustomerList(cfetch.data);
+                //setAllcustomernames(customers);
+                setCustomerOptions( cfetch.data.map( (item, index) => {return {key: index, value: item.name, text: item.name};} ) );
+                // set default value 
+                setIpcustomer(customers[0]);
+            }
             const sfetch = await getStores();
-            const stores = sfetch.data.map( item => item.name);
-            setStoreList(sfetch.data);
-            //setAllstorenames(stores);
-            setStoreOptions( sfetch.data.map( (item, index) => {return {key: index, value: item.name, text: item.name};} ) );
-            // Set default value so as not make empty states
-            setIpproduct(products[0]);
-            setIpcustomer(customers[0]);
-            setIpstore(stores[0]);
+            if (sfetch?.data && sfetch?.data.length > 0){
+                const stores = sfetch.data.map( item => item.name);
+                setStoreList(sfetch.data);
+                //setAllstorenames(stores);
+                setStoreOptions( sfetch.data.map( (item, index) => {return {key: index, value: item.name, text: item.name};} ) );
+                // set default value 
+                setIpstore(stores[0]);
+            }
+            // Set default value so as not make empty states                                    
         }
-        catch{
-            alert("Error: Cannot load Sales data.");
+        catch(error){
+            if (error === undefined || error === null){
+                alert("Error: Cannot load Sales data.");
+            }
+            else{
+                alert(error);
+            }
         }
     };
     useEffect( 
@@ -72,15 +86,24 @@ function NewSalesForm(props){
                     dateSold: ipdate
                 }
             );
-            alert("Sales Created.");
-            
-            // form close callback
-            props.callback();
-            props.dataChange();
+            if (response.status === 200){
+                alert("Sales Created.");            
+                // form close callback
+                props.callback();
+                props.dataChange();
+            } else{
+                setErrorString("Error: Could not complete the operation.");
+            }
         }
         catch (error){
-            let errorMsg = error.response.data.errors.Name;
-            setErrorString(errorMsg);
+            let errorMsg = error?.response?.data?.errors?.Name;
+            console.log("errorMsg: ",errorMsg);
+            if (errorMsg === undefined || errorMsg === null){
+                setErrorString("Undefined Error - Could not complete the operation");
+            }
+            else {
+                setErrorString(errorMsg);
+            }
         }
     }
 

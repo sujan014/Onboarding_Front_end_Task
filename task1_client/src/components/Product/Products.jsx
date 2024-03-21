@@ -6,6 +6,7 @@ import { PaginationRender } from "../Pagination/PaginationRender";
 import { BASE_URL } from "../../App";
 import '../components.css';
 import { RenderDeleteProductForm, RenderEditProductForm, RenderNewProductForm } from "./RenderProductForms";
+import ProductTableMap from "./ProductTableMap";
 
 function ProductsList(){
     const [products, setProducts] = useState([]);
@@ -43,7 +44,11 @@ function ProductsList(){
     const fetchProducts = async () => {
         try{
             const newProducts = await axios.get(`${BASE_URL}/api/Product`);
-            setProducts(newProducts.data);            
+            if (newProducts.data.length > 0){
+                setProducts(newProducts.data);
+            } else {
+                alert("Products data is empty.");
+            }
         }
         catch{
             alert("Error: Cannot fetch Products.");
@@ -74,30 +79,27 @@ function ProductsList(){
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                    {currentItems.map((prod) => (
-                            <TableRow key={prod.id}>
-                                <TableCell>{prod.name}</TableCell>
-                                <TableCell>{prod.price}</TableCell>
-                                <TableCell>
-                                    <Button color='yellow' onClick={() => EditFormArgs(prod.id, prod.name, prod.price, EditProductAction)} icon='edit' labelPosition="left" content='Edit' >
-                                    </Button>
-                                </TableCell>
-                                <TableCell>
-                                    <Button color='red' onClick={() => EditFormArgs(prod.id, prod.name, prod.price, DeleteProductAction)} icon='trash' labelPosition="left" content='Delete' >
-                                    </Button>
-                                </TableCell>
-                            </TableRow>                        
+                    {currentItems.map((prod) => {
+                            const id = prod?.id ? prod?.id : 0;
+                            const name = prod?.name ? prod?.name : "";
+                            const price = prod?.price ? prod.price : 0;
+
+                            return (
+                                <ProductTableMap 
+                                    key={`Product-${new Date().toLocaleDateString()}-${id}`} 
+                                    product={prod}
+                                    EditFormArgs = {EditFormArgs}
+                                    EditFormAction = {EditProductAction}
+                                    DeleteFormAction = {DeleteProductAction}
+                                />
                             )
+                        }                            
                         )}
                     </TableBody>
                 </Table>
                 <RenderNewProductForm condition={newProductform} formAction = {NewProductAction} updateChange={() => {setDataChanged(!dataChanged)}} />
                 <RenderEditProductForm condition={editProductform} Id={argid} Name={argname} Price={argprice} formAction = {EditProductAction} updateChange={() => {setDataChanged(!dataChanged)}} />
-                <RenderDeleteProductForm condition={deleteProductform} Id={argid} Name={argname} Price={argprice} formAction = {DeleteProductAction} updateChange={() => {setDataChanged(!dataChanged)}} />
-                
-                {/* {newproductform ? <NewProductForm callback={NewProductAction} dataChange={() => {setDataChanged(!dataChanged)}}/> : null}
-                {editproductform ? <EditProductForm Id={argid} Name={argname} Price={argprice} callback = {EditProductAction} dataChange={() => {setDataChanged(!dataChanged)}}/> : null}
-                {deleteproductform ? <DeleteProductForm Id={argid} Name={argname} Price={argprice} callback = {DeleteProductAction} dataChange={() => {setDataChanged(!dataChanged)}}/> : null} */}
+                <RenderDeleteProductForm condition={deleteProductform} Id={argid} Name={argname} Price={argprice} formAction = {DeleteProductAction} updateChange={() => {setDataChanged(!dataChanged)}} />                                
             </div>
             <div className="nav_panel">
                 <PaginationRender 
