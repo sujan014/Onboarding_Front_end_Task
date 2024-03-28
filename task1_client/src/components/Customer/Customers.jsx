@@ -108,9 +108,27 @@ function CustomersList(){
                     {currentPage}
                 </div>
             </div>
-            <RenderNewCustomerForm condition={newform} formAction = {NewFormAction} updateChange={() => {setDataChanged(!dataChanged)}}/>
-            <RenderEditCustomerForm Id={argid} condition={editform}  Name={argname} Address={argaddress} formAction = {EditFormAction} updateChange={() => {setDataChanged(!dataChanged)}}/>
-            <RenderDeleteCustomerForm Id={argid} condition={deleteform}  Name={argname} Address={argaddress} formAction = {DeleteFormAction} updateChange={() => {setDataChanged(!dataChanged)}} />            
+            <RenderNewCustomerForm 
+                condition={newform} 
+                formAction = {NewFormAction} 
+                updateChange={() => {setDataChanged(!dataChanged)}}
+            />
+            <RenderEditCustomerForm 
+                Id={argid} 
+                condition={editform}  
+                Name={argname} 
+                Address={argaddress} 
+                formAction = {EditFormAction} 
+                updateChange={() => {setDataChanged(!dataChanged)}}
+            />
+            <RenderDeleteCustomerForm 
+                Id={argid} 
+                condition={deleteform}  
+                Name={argname} 
+                Address={argaddress} 
+                formAction = {DeleteFormAction} 
+                updateChange={() => {setDataChanged(!dataChanged)}} 
+            />            
         </div>
     )
 }

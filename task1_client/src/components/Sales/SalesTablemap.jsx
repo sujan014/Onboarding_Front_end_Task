@@ -11,11 +11,21 @@ function SalesTableMap(props){
             <TableCell>{store}</TableCell>
             <TableCell>{date}</TableCell>
             <TableCell>
-                <Button color='yellow' onClick={ () => {EditFormArgs(id, EditFormAction)} } icon='edit' labelPosition="left" content='Edit' >
+                <Button 
+                    color='yellow' 
+                    onClick={ () => {EditFormArgs(id, EditFormAction)} } 
+                    icon='edit' 
+                    labelPosition="left" 
+                    content='Edit' >
                 </Button>
             </TableCell>
             <TableCell>
-                <Button color='red' onClick={ () => {EditFormArgs(id, DeleteFormAction)} } icon='trash' labelPosition="left" content='Delete' >
+                <Button 
+                    color='red' 
+                    onClick={ () => {EditFormArgs(id, DeleteFormAction)} } 
+                    icon='trash' 
+                    labelPosition="left" 
+                    content='Delete' >
                 </Button>
             </TableCell>
         </TableRow>

@@ -29,7 +29,7 @@ function EditSalesForm(props){
             // Fetch products table
             
             const productFetch = await getProducts();
-            if (productFetch?.data && productFetch?.data.length > 0){
+            if (productFetch?.data && productFetch?.data.length){
                 const products = productFetch.data.map( item => item.name);
                 setProductList(productFetch.data);          // All Products data                
                 setProductOptions( productFetch.data.map( (item, index) => {
@@ -42,7 +42,7 @@ function EditSalesForm(props){
             }
             // Fetch Customers table            
             const cstomerFetch = await getCustomers();
-            if (cstomerFetch?.data && cstomerFetch?.data.length > 0){
+            if (cstomerFetch?.data && cstomerFetch?.data.length){
                 const customers = cstomerFetch.data.map( item => item.name);
                 setCustomerList(cstomerFetch.data);          // All Customer data
                 setCustomerOptions(cstomerFetch.data.map( (item, index) => {
@@ -55,7 +55,7 @@ function EditSalesForm(props){
             }
             // Fetch stores table
             const storeFetch = await getStores();
-            if (storeFetch?.data && storeFetch?.data.length > 0){
+            if (storeFetch?.data && storeFetch?.data.length){
                 const stores = storeFetch.data.map( item => item.name);
                 setStoreList(storeFetch.data);          // All Store data
                 setStoreOptions(storeFetch.data.map( (item, index) => {

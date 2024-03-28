@@ -97,9 +97,27 @@ function ProductsList(){
                         )}
                     </TableBody>
                 </Table>
-                <RenderNewProductForm condition={newProductform} formAction = {NewProductAction} updateChange={() => {setDataChanged(!dataChanged)}} />
-                <RenderEditProductForm Id={argid} condition={editProductform} Name={argname} Price={argprice} formAction = {EditProductAction} updateChange={() => {setDataChanged(!dataChanged)}} />
-                <RenderDeleteProductForm Id={argid} condition={deleteProductform} Name={argname} Price={argprice} formAction = {DeleteProductAction} updateChange={() => {setDataChanged(!dataChanged)}} />                                
+                <RenderNewProductForm 
+                    condition={newProductform} 
+                    formAction = {NewProductAction} 
+                    updateChange={() => {setDataChanged(!dataChanged)}} 
+                />
+                <RenderEditProductForm 
+                    Id={argid} 
+                    condition={editProductform} 
+                    Name={argname} 
+                    Price={argprice} 
+                    formAction = {EditProductAction} 
+                    updateChange={() => {setDataChanged(!dataChanged)}} 
+                />
+                <RenderDeleteProductForm 
+                    Id={argid} 
+                    condition={deleteProductform} 
+                    Name={argname} 
+                    Price={argprice} 
+                    formAction = {DeleteProductAction} 
+                    updateChange={() => {setDataChanged(!dataChanged)}} 
+                />
             </div>
             <div className="nav_panel">
                 <PaginationRender 

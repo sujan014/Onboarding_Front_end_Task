@@ -136,9 +136,23 @@ function SalesList(){
                         )}
                     </TableBody>
                 </Table>
-                <RenderNewSalesForm condition={newsalesform} formAction={NewSalesAction} updateChange={() => {setDataChanged(!dataChanged)}}/>
-                <RenderEditSalesForm Id={argid} condition={editsalesform} formAction={EditSalesAction} updateChange={() => {setDataChanged(!dataChanged)}}/>
-                <RenderDeleteSalesForm Id={argid} condition={deletesalesform} formAction={DeleteSalesAction} updateChange={() => {setDataChanged(!dataChanged)}}/>                
+                <RenderNewSalesForm 
+                    condition={newsalesform} 
+                    formAction={NewSalesAction} 
+                    updateChange={() => {setDataChanged(!dataChanged)}}
+                />
+                <RenderEditSalesForm 
+                    Id={argid} 
+                    condition={editsalesform} 
+                    formAction={EditSalesAction} 
+                    updateChange={() => {setDataChanged(!dataChanged)}}
+                />
+                <RenderDeleteSalesForm 
+                    Id={argid} 
+                    condition={deletesalesform} 
+                    formAction={DeleteSalesAction} 
+                    updateChange={() => {setDataChanged(!dataChanged)}}
+                />                
             </div>
             <div>
                 <PaginationRender 

@@ -99,9 +99,27 @@ function StoresList(){
                         )}
                     </TableBody>
                 </Table>
-                <RenderNewStoreForm condition={newstoreform} formAction={NewStoreAction} updateChange={() => {setDataChanged(!dataChanged)}}/>
-                <RenderEditStoreForm Id={argid} condition={editstoreform} Name={argname} Address={argaddress} formAction = {EditStoreAction} updateChange={() => {setDataChanged(!dataChanged)}}/>
-                <RenderDeleteStoreForm Id={argid} condition={deletestoreform} Name={argname} Address={argaddress} formAction={DeleteStoreAction} updateChange={() => {setDataChanged(!dataChanged)}}/>                
+                <RenderNewStoreForm 
+                    condition={newstoreform} 
+                    formAction={NewStoreAction} 
+                    updateChange={() => {setDataChanged(!dataChanged)}}
+                />
+                <RenderEditStoreForm 
+                    Id={argid} 
+                    condition={editstoreform} 
+                    Name={argname} 
+                    Address={argaddress} 
+                    formAction = {EditStoreAction} 
+                    updateChange={() => {setDataChanged(!dataChanged)}}
+                />
+                <RenderDeleteStoreForm 
+                    Id={argid} 
+                    condition={deletestoreform} 
+                    Name={argname} 
+                    Address={argaddress} 
+                    formAction={DeleteStoreAction} 
+                    updateChange={() => {setDataChanged(!dataChanged)}}
+                />                
             </div>
             <div className="nav_panel">
                 <PaginationRender 

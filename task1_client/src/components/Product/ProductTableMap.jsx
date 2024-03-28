@@ -13,11 +13,21 @@ function ProductTableMap(props){
             <TableCell>{name}</TableCell>
             <TableCell>{price}</TableCell>
             <TableCell>
-                <Button color="yellow" onClick={ () => EditFormArgs(id, name, price, EditFormAction) } icon="edit" labelPosition="left" content="Edit">                                        
+                <Button 
+                    color="yellow" 
+                    onClick={ () => EditFormArgs(id, name, price, EditFormAction) } 
+                    icon="edit" 
+                    labelPosition="left" 
+                    content="Edit">                                        
                 </Button>
             </TableCell>
             <TableCell>
-                <Button color="red" onClick={ () => EditFormArgs(id, name, price, DeleteFormAction) } icon="trash" labelPosition="left" content="Delete">                                    
+                <Button 
+                    color="red" 
+                    onClick={ () => EditFormArgs(id, name, price, DeleteFormAction) } 
+                    icon="trash" 
+                    labelPosition="left" 
+                    content="Delete">                                    
                 </Button>
             </TableCell>
         </TableRow>
