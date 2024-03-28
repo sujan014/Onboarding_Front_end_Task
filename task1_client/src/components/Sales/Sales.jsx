@@ -46,7 +46,7 @@ function SalesList(){
         try{
             const newsales = await axios.get(`${BASE_URL}/api/Sales`);            
             
-            if (newsales.data.length > 0){
+            if (newsales?.data && newsales.data.length){
                 setSales(newsales.data);
             } else {
                 alert("Sales data is empty.");
@@ -137,8 +137,8 @@ function SalesList(){
                     </TableBody>
                 </Table>
                 <RenderNewSalesForm condition={newsalesform} formAction={NewSalesAction} updateChange={() => {setDataChanged(!dataChanged)}}/>
-                <RenderEditSalesForm condition={editsalesform} Id={argid} formAction={EditSalesAction} updateChange={() => {setDataChanged(!dataChanged)}}/>
-                <RenderDeleteSalesForm condition={deletesalesform} Id={argid} formAction={DeleteSalesAction} updateChange={() => {setDataChanged(!dataChanged)}}/>                
+                <RenderEditSalesForm Id={argid} condition={editsalesform} formAction={EditSalesAction} updateChange={() => {setDataChanged(!dataChanged)}}/>
+                <RenderDeleteSalesForm Id={argid} condition={deletesalesform} formAction={DeleteSalesAction} updateChange={() => {setDataChanged(!dataChanged)}}/>                
             </div>
             <div>
                 <PaginationRender 

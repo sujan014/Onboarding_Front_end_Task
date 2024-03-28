@@ -44,7 +44,7 @@ function ProductsList(){
     const fetchProducts = async () => {
         try{
             const newProducts = await axios.get(`${BASE_URL}/api/Product`);
-            if (newProducts.data.length > 0){
+            if (newProducts?.data && newProducts.data.length){
                 setProducts(newProducts.data);
             } else {
                 alert("Products data is empty.");
@@ -98,8 +98,8 @@ function ProductsList(){
                     </TableBody>
                 </Table>
                 <RenderNewProductForm condition={newProductform} formAction = {NewProductAction} updateChange={() => {setDataChanged(!dataChanged)}} />
-                <RenderEditProductForm condition={editProductform} Id={argid} Name={argname} Price={argprice} formAction = {EditProductAction} updateChange={() => {setDataChanged(!dataChanged)}} />
-                <RenderDeleteProductForm condition={deleteProductform} Id={argid} Name={argname} Price={argprice} formAction = {DeleteProductAction} updateChange={() => {setDataChanged(!dataChanged)}} />                                
+                <RenderEditProductForm Id={argid} condition={editProductform} Name={argname} Price={argprice} formAction = {EditProductAction} updateChange={() => {setDataChanged(!dataChanged)}} />
+                <RenderDeleteProductForm Id={argid} condition={deleteProductform} Name={argname} Price={argprice} formAction = {DeleteProductAction} updateChange={() => {setDataChanged(!dataChanged)}} />                                
             </div>
             <div className="nav_panel">
                 <PaginationRender 

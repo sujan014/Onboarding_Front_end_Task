@@ -14,7 +14,7 @@ function RenderNewProductForm(props){
 }
 
 function RenderEditProductForm(props){
-    const {condition, Id, Name, Price, formAction, updateChange} = props;
+    const {Id, condition, Name, Price, formAction, updateChange} = props;
     if (condition){
         return <EditProductForm Id={Id} Name={Name} Price={Price} callback = {formAction} dataChange={updateChange}/>
     }
@@ -24,7 +24,7 @@ function RenderEditProductForm(props){
 }
 
 function RenderDeleteProductForm(props){
-    const {condition, Id, Name, Price, formAction, updateChange} = props;
+    const {Id, condition, Name, Price, formAction, updateChange} = props;
     if (condition){
         return <DeleteProductForm Id={Id} Name={Name} Price={Price} callback = {formAction} dataChange={updateChange}/>
     }

@@ -44,7 +44,7 @@ function StoresList(){
     const fetchStores = async () => {
         try{
             const newstore = await axios.get(`${BASE_URL}/api/Store`);
-            if (newstore.data.length > 0){
+            if (newstore?.data && newstore.data.length){
                 setStore(newstore.data);
             } else {
                 alert("Store data is empty.");
@@ -89,7 +89,7 @@ function StoresList(){
                                 return (
                                     <StoreTableMap 
                                         key={`Store-${new Date().toLocaleDateString()}-${id}`} 
-                                        customer={store}
+                                        store={store}
                                         EditFormArgs = {EditFormArgs}
                                         EditFormAction = {EditStoreAction}
                                         DeleteFormAction = {DeleteStoreAction}                                         
@@ -100,8 +100,8 @@ function StoresList(){
                     </TableBody>
                 </Table>
                 <RenderNewStoreForm condition={newstoreform} formAction={NewStoreAction} updateChange={() => {setDataChanged(!dataChanged)}}/>
-                <RenderEditStoreForm condition={editstoreform} Id={argid} Name={argname} Address={argaddress} formAction = {EditStoreAction} updateChange={() => {setDataChanged(!dataChanged)}}/>
-                <RenderDeleteStoreForm condition={deletestoreform} Id={argid} Name={argname} Address={argaddress} formAction={DeleteStoreAction} updateChange={() => {setDataChanged(!dataChanged)}}/>                
+                <RenderEditStoreForm Id={argid} condition={editstoreform} Name={argname} Address={argaddress} formAction = {EditStoreAction} updateChange={() => {setDataChanged(!dataChanged)}}/>
+                <RenderDeleteStoreForm Id={argid} condition={deletestoreform} Name={argname} Address={argaddress} formAction={DeleteStoreAction} updateChange={() => {setDataChanged(!dataChanged)}}/>                
             </div>
             <div className="nav_panel">
                 <PaginationRender 

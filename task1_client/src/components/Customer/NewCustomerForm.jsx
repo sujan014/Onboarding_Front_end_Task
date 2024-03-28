@@ -6,6 +6,8 @@ import { ErrorComponent } from "../util/utils";
 import { BASE_URL } from "../../App";
 
 function NewCustomerForm(props){
+    const {callback, dataChange} = props;
+
     const [ipname, setIpname] = useState('')
     const [ipaddress, setIpaddress] = useState('')
     let openForm = true;
@@ -24,8 +26,8 @@ function NewCustomerForm(props){
             if (response.status === 200){
                 alert("Customer Created.");
                 // form close callback
-                props.callback();
-                props.dataChange();
+                callback();
+                dataChange();
             } else{
                 setErrorString("Error: Could not complete the operation.");
             }
@@ -49,7 +51,7 @@ function NewCustomerForm(props){
                 <Form.Input label="ADDRESS" required type ="text" value={ipaddress} onChange={e => setIpaddress(e.target.value)} />
             </Modal.Content>
             <Modal.Actions>
-                <Button color='black' type="button" onClick={props.callback} content='cancel' />
+                <Button color='black' type="button" onClick={callback} content='cancel' />
                 <Button color='green' type="submit" icon="check" labelPosition="right" content='create' />
             </Modal.Actions>
             {errorString ? <ErrorComponent text={errorString} />: null}

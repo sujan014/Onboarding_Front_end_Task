@@ -7,6 +7,8 @@ import { BASE_URL } from "../../App";
 import { getCustomers, getProducts, getStores } from "./SalesUtil";
 
 function NewSalesForm(props){
+    const {callback, dataChange} = props;
+
     const [ipproduct, setIpproduct] = useState('');
     const [ipcustomer, setIpcustomer] = useState('');
     const [ipstore, setIpstore] = useState('');
@@ -29,7 +31,13 @@ function NewSalesForm(props){
             if (pfetch?.data && pfetch?.data.length > 0){
                 const products = pfetch.data.map( item => item.name);
                 setProductList(pfetch.data);
-                setProductOptions( pfetch.data.map( (item, index) => {return {key: index, value: item.name, text: item.name};} ) );
+                setProductOptions( pfetch.data.map( (item, index) => {
+                    return {
+                        key: index, 
+                        value: item.name, 
+                        text: item.name
+                    };
+                }));
                 // set default value 
                 setIpproduct(products[0]);
             }
@@ -38,7 +46,13 @@ function NewSalesForm(props){
                 const customers = cfetch.data.map( item => item.name);
                 setCustomerList(cfetch.data);
                 //setAllcustomernames(customers);
-                setCustomerOptions( cfetch.data.map( (item, index) => {return {key: index, value: item.name, text: item.name};} ) );
+                setCustomerOptions( cfetch.data.map( (item, index) => {
+                    return {
+                        key: index, 
+                        value: item.name, 
+                        text: item.name
+                    };
+                }));
                 // set default value 
                 setIpcustomer(customers[0]);
             }
@@ -47,7 +61,13 @@ function NewSalesForm(props){
                 const stores = sfetch.data.map( item => item.name);
                 setStoreList(sfetch.data);
                 //setAllstorenames(stores);
-                setStoreOptions( sfetch.data.map( (item, index) => {return {key: index, value: item.name, text: item.name};} ) );
+                setStoreOptions( sfetch.data.map( (item, index) => {
+                    return {
+                        key: index, 
+                        value: item.name, 
+                        text: item.name
+                    };
+                }));
                 // set default value 
                 setIpstore(stores[0]);
             }
@@ -89,15 +109,15 @@ function NewSalesForm(props){
             if (response.status === 200){
                 alert("Sales Created.");            
                 // form close callback
-                props.callback();
-                props.dataChange();
+                callback();
+                dataChange();
             } else{
                 setErrorString("Error: Could not complete the operation.");
             }
         }
         catch (error){
             let errorMsg = error?.response?.data?.errors?.Name;
-            console.log("errorMsg: ",errorMsg);
+            
             if (errorMsg === undefined || errorMsg === null){
                 setErrorString("Undefined Error - Could not complete the operation");
             }
@@ -128,7 +148,7 @@ function NewSalesForm(props){
             </Modal.Content>
 
             <Modal.Actions>
-                <Button color='black' type="button" onClick={props.callback} content='Cancel' />
+                <Button color='black' type="button" onClick={callback} content='Cancel' />
                 <Button color='red' type="submit" icon="check" labelPosition="right" content='Create'/>
             </Modal.Actions>
             {errorString ? <ErrorComponent text={errorString} />: null}            

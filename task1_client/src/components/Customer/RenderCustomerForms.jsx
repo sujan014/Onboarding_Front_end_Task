@@ -14,7 +14,7 @@ function RenderNewCustomerForm(props){
 }
 
 function RenderEditCustomerForm(props){
-    const {condition, Id, Name, Address, formAction, updateChange} = props;    
+    const {Id, condition, Name, Address, formAction, updateChange} = props;    
     if (condition){
         return <EditCustomerForm Id={Id} Name={Name} Address={Address} callback = {formAction} dataChange={updateChange}/>
     }
@@ -24,7 +24,7 @@ function RenderEditCustomerForm(props){
 }
 
 function RenderDeleteCustomerForm(props){
-    const {condition, Id, Name, Address, formAction, updateChange} = props;
+    const {Id, condition, Name, Address, formAction, updateChange} = props;
     if (condition){
         return <DeleteCustomerForm Id={Id} Name={Name} Address={Address} callback = {formAction} dataChange={updateChange}/>
     }

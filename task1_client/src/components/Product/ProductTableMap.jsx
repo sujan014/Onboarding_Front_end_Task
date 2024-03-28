@@ -4,7 +4,7 @@ import {TableCell, TableRow, Button} from "semantic-ui-react";
 function ProductTableMap(props){
     const {product, EditFormArgs, EditFormAction, DeleteFormAction} = props;
 
-    const id = product?.id ? product?.id : 0;
+    const id = product.id;
     const name = product?.name ? product.name : "";
     const price = product?.price ? product.price : "";
         

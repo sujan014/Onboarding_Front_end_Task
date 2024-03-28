@@ -40,7 +40,7 @@ function CustomersList(){
     const fetchCustomers = async () => {
         try{
             const response = await axios.get(`${BASE_URL}/api/Customer`);            
-            if (response.data.length > 0){
+            if (response?.data && response.data.length){
                 setCustomers(response.data);
             } else {
                 alert("Customer data is empty.");
@@ -109,8 +109,8 @@ function CustomersList(){
                 </div>
             </div>
             <RenderNewCustomerForm condition={newform} formAction = {NewFormAction} updateChange={() => {setDataChanged(!dataChanged)}}/>
-            <RenderEditCustomerForm condition={editform} Id={argid} Name={argname} Address={argaddress} formAction = {EditFormAction} updateChange={() => {setDataChanged(!dataChanged)}}/>
-            <RenderDeleteCustomerForm condition={deleteform} Id={argid} Name={argname} Address={argaddress} formAction = {DeleteFormAction} updateChange={() => {setDataChanged(!dataChanged)}} />            
+            <RenderEditCustomerForm Id={argid} condition={editform}  Name={argname} Address={argaddress} formAction = {EditFormAction} updateChange={() => {setDataChanged(!dataChanged)}}/>
+            <RenderDeleteCustomerForm Id={argid} condition={deleteform}  Name={argname} Address={argaddress} formAction = {DeleteFormAction} updateChange={() => {setDataChanged(!dataChanged)}} />            
         </div>
     )
 }

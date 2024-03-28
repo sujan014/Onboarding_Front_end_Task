@@ -32,21 +32,39 @@ function EditSalesForm(props){
             if (productFetch?.data && productFetch?.data.length > 0){
                 const products = productFetch.data.map( item => item.name);
                 setProductList(productFetch.data);          // All Products data                
-                setProductOptions( productFetch.data.map( (item, index) => {return {key: index, value: item.name, text: item.name};} ) );
+                setProductOptions( productFetch.data.map( (item, index) => {
+                    return {
+                        key: index, 
+                        value: item.name, 
+                        text: item.name
+                    };
+                }));
             }
             // Fetch Customers table            
             const cstomerFetch = await getCustomers();
             if (cstomerFetch?.data && cstomerFetch?.data.length > 0){
                 const customers = cstomerFetch.data.map( item => item.name);
                 setCustomerList(cstomerFetch.data);          // All Customer data
-                setCustomerOptions(cstomerFetch.data.map( (item, index) => {return {key: index, value: item.name, text: item.name}}));
+                setCustomerOptions(cstomerFetch.data.map( (item, index) => {
+                    return {
+                        key: index, 
+                        value: item.name, 
+                        text: item.name
+                    }
+                }));
             }
             // Fetch stores table
             const storeFetch = await getStores();
             if (storeFetch?.data && storeFetch?.data.length > 0){
                 const stores = storeFetch.data.map( item => item.name);
                 setStoreList(storeFetch.data);          // All Store data
-                setStoreOptions(storeFetch.data.map( (item, index) => {return {key: index, value: item.name, text: item.name}}));       // All store names
+                setStoreOptions(storeFetch.data.map( (item, index) => {
+                    return {
+                        key: index, 
+                        value: item.name, 
+                        text: item.name
+                    }
+                }));       // All store names
             }
             
             // Fetch sales item by ID            
@@ -115,7 +133,7 @@ function EditSalesForm(props){
         }
         catch (error){
             let errorMsg = error?.response?.data?.errors?.Name;
-            console.log("errorMsg: ",errorMsg);
+            
             if (errorMsg === undefined || errorMsg === null){
                 setErrorString("Undefined Error - Could not complete the operation");
             }

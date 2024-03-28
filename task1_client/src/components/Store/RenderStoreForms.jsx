@@ -14,7 +14,7 @@ function RenderNewStoreForm(props){
 }
 
 function RenderEditStoreForm(props){
-    const {condition, Id, Name, Address, formAction, updateChange} = props;
+    const {Id, condition, Name, Address, formAction, updateChange} = props;
 
     if (condition){
         return <EditStoreForm Id={Id} Name={Name} Address={Address} callback = {formAction} dataChange={updateChange}/>
@@ -25,7 +25,7 @@ function RenderEditStoreForm(props){
 }
 
 function RenderDeleteStoreForm(props){
-    const {condition, Id, Name, Address, formAction, updateChange} = props;
+    const {Id, condition, Name, Address, formAction, updateChange} = props;
 
     if (condition){
         return <DeleteStoreForm Id={Id} Name={Name} Address={Address} callback={formAction} dataChange={updateChange}/>
@@ -34,9 +34,5 @@ function RenderDeleteStoreForm(props){
         return null;
     }
 }
-
-{/* {newstoreform ? <NewStoreForm callback={NewStoreAction} dataChange={() => {setDataChanged(!dataChanged)}}/> : null}
-{editstoreform ? <EditStoreForm Id={argid} Name={argname} Address={argaddress} callback = {EditStoreAction} dataChange={() => {setDataChanged(!dataChanged)}}/> : null}
-{deletestoreform ? <DeleteStoreForm Id={argid} Name={argname} Address={argaddress} callback={DeleteStoreAction} dataChange={() => {setDataChanged(!dataChanged)}}/> : null} */}
 
 export {RenderNewStoreForm, RenderEditStoreForm, RenderDeleteStoreForm};

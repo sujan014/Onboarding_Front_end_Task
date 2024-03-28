@@ -2,11 +2,11 @@ import React from "react";
 import {TableCell, TableRow, Button} from "semantic-ui-react";
 
 function StoreTableMap(props){
-    const {customer, EditFormArgs, EditFormAction, DeleteFormAction} = props;
+    const {store, EditFormArgs, EditFormAction, DeleteFormAction} = props;
 
-    const id = customer?.id;
-    const name = customer?.name ? customer.name : "";
-    const address = customer?.address ? customer.address : "";
+    const id = store.id;
+    const name = store?.name ? store.name : "";
+    const address = store?.address ? store.address : "";
     
     return(
         <TableRow>

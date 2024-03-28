@@ -13,7 +13,7 @@ function RenderNewSalesForm(props){
 }
 
 function RenderEditSalesForm(props){
-    const {condition, Id, formAction, updateChange} = props;
+    const {Id, condition, formAction, updateChange} = props;
 
     if (condition){
         return <EditSalesForm editid={Id} callback={formAction} dataChange={updateChange}/>
@@ -23,7 +23,7 @@ function RenderEditSalesForm(props){
 }
 
 function RenderDeleteSalesForm(props){
-    const {condition, Id, formAction, updateChange} = props;
+    const {Id, condition, formAction, updateChange} = props;
 
     if (condition){
         return <DeleteSalesForm deleteid={Id} callback={formAction} dataChange={updateChange}/>

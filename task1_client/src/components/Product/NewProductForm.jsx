@@ -6,6 +6,8 @@ import { ErrorComponent } from "../util/utils";
 import { BASE_URL } from "../../App";
 
 function NewProductForm(props){
+    const {callback, dataChange} = props;
+
     const [ipname, setIpname] = useState('')
     const [ipprice, setIpprice] = useState(0)
     let openForm = true;
@@ -24,15 +26,15 @@ function NewProductForm(props){
             if (response.status === 200){
                 alert("Product Created.");
                 // form close callback
-                props.callback();
-                props.dataChange();
+                callback();
+                dataChange();
             } else{
                 setErrorString("Error: Could not complete the operation.");
             }
         }
         catch (error){
             let errorMsg = error?.response?.data?.errors?.Name;
-            //console.log("errorMsg: ",errorMsg);
+            
             if (errorMsg === undefined || errorMsg === null){
                 setErrorString("Undefined Error - Could not complete the operation");
             }
@@ -50,7 +52,7 @@ function NewProductForm(props){
                 <Form.Input label="PRICE" required type ="number" value={ipprice} onChange={e => setIpprice(e.target.value)} />
             </Modal.Content>
             <Modal.Actions>
-                <Button color='black' type="button" onClick={props.callback} content='cancel' />
+                <Button color='black' type="button" onClick={callback} content='cancel' />
                 <Button color='green' type="submit" icon="check" labelPosition="right" content='create' />
             </Modal.Actions>
             {errorString ? <ErrorComponent text={errorString} />: null}

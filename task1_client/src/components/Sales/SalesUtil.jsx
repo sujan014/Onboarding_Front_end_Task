@@ -9,7 +9,6 @@ const getCustomers = async () => {
     }
     catch{
         throw new Error("Cannot fetch Sales customers.");
-        // alert("Error: Cannot fetch Sales customers.");
         // return null;
     }
 }
@@ -21,8 +20,7 @@ const getProducts = async () => {
         return (fetch_prds !== null) ? fetch_prds : null;
     }
     catch{        
-        throw new Error("Cannot fetch Sales Products.");
-        //alert("Error: Cannot fetch Sales Products.");
+        throw new Error("Cannot fetch Sales Products.");        
         // return null;
     }
 }
@@ -34,8 +32,7 @@ const getStores = async () => {
         return (fetch_stores !== null) ? fetch_stores : null;
     }
     catch{
-        throw new Error("Cannot fetch Sales customers.");
-        //alert("Error: Cannot fetch Sales Customers.");
+        throw new Error("Cannot fetch Sales customers.");        
         // return null;
     }
 }

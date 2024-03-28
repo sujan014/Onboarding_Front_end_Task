@@ -40,7 +40,7 @@ function EditProductForm(props){
         }
         catch (error){
             let errorMsg = error?.response?.data?.errors?.Name;
-            console.log("errorMsg: ",errorMsg);
+            
             if (errorMsg === undefined || errorMsg === null){
                 setErrorString("Undefined Error - Could not complete the operation");
             }
